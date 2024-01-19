@@ -13,7 +13,7 @@ contract FuzzTest is Test {
         target = dontpeak.deployed();
     }
 
-    // function test_GetThisPassing() public {
+    // function test_GetThisPassing_1() public {
     //     string memory solution = "win";
 
 
@@ -26,7 +26,7 @@ contract FuzzTest is Test {
 
 
     // solution
-    function test_GetThisPassing(uint256 _guess) public {
+    function test_GetThisPassing_1(uint256 _guess) public {
 
         vm.assume(_guess < 5000);
         string memory solution = "win";
