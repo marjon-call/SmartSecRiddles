@@ -29,7 +29,7 @@ contract CallMeMaybe {
         depositAmount[msg.sender] = 0;
     }
 
-    // create function to use tokens
+    // group mebers can flashloan tokens
     function usePooledWealth(bytes memory _calldata, address _target) external {
         require(depositers[msg.sender], "Don't be shy, join the group first");
         uint256 startBalance = IERC20(token).balanceOf(address(this));
