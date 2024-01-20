@@ -29,6 +29,9 @@ contract CallMeMaybeHelper is Test {
             vm.stopPrank();
         }
 
+        vm.prank(users[2]);
+        deployed.leaveGroup();
+
 
     }
 

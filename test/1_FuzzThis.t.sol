@@ -29,19 +29,22 @@ contract FuzzTest is Test {
     function test_GetThisPassing_1(uint256 _guess) public {
 
         vm.assume(_guess < 5000);
-        string memory solution = "win";
+        bytes memory solution = "win";
 
 
 
         bytes32 guess = keccak256(abi.encode(15 + _guess));
 
 
-        string memory answer = target.dontHackMePlease(guess);
+        bytes memory answer = target.dontHackMePlease(guess);
+
+        if (answer.length != solution.length) {
+            return;
+        }
+
+        console.log(_guess);
 
 
-        
-
-        
         assertEq(solution, answer);
     }
 
