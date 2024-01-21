@@ -24,6 +24,8 @@ contract BeProductive {
     // your funds will be locked until you reach your savings goal
     function createGoal(uint256 _startAmount, uint256 _goal) external {
         require(!isMotivated[msg.sender], "Dont quit on your previous dream");
+        require(_goal > 50 ether, "shoot for the stars");
+        require(_startAmount < _goal - 20 ether, "no free money");
         token.transferFrom(msg.sender, address(this), _startAmount);
         goalTracker[msg.sender] = ProgressTracker(_startAmount, _goal);
         isMotivated[msg.sender] = true;

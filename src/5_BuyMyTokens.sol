@@ -24,6 +24,11 @@ contract BuyMyTokens {
         tokenPrices[token3] = 0.3 ether;
     }
 
+    function _checkPurchasingPower(uint256 _amountOfEtherAvailable, uint256 _amount, uint256 _price) internal {
+        uint256 cost = _price * _amount;
+        require(cost >= _amountOfEtherAvailable, "dont be that guy; pay for your tokens");
+    }
+
 
     function purchaseTokens(uint256[] memory _amounts) external payable {
         require(_amounts.length == 3, "There are 3 tokens");
@@ -31,7 +36,7 @@ contract BuyMyTokens {
             MarqToken token = tokens[i];
             uint256 amount = _amounts[i];
             uint256 price = tokenPrices[token];
-            require(price * amount >= msg.value, "dont be that guy; pay for your tokens");
+            _checkPurchasingPower(msg.value, amount, price);
             token.mint(amount * 10**18);
             token.transfer(msg.sender, amount * 10**18);
         }

