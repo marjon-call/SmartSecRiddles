@@ -1,4 +1,4 @@
-# CallMeMaybe
+# CallMeMaybe Solution
 Hopefully you figure out that you can use the function `usePooledWealth` to call the `CallMeMaybe` smart contract. The line `_target.call(_calldata);` does not validate the target contract or the calldata. This allows us to call the ERC20 token and approve ourselves. Since we are making the call from the smart contract, we are approving the smart contract to allow us to spend it's tokens. To steal 600 tokens, first we need to transfer the tokens from the users who max approved the contract. Then we are free to approve ourselves to spend the tokens.
 
 Here is my version of the exploit:
