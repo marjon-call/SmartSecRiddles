@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.22;
 
-import "forge-std/console.sol";
-
 
 contract IKnowYulNeverHackThis {
 
@@ -84,7 +82,6 @@ contract IKnowYulNeverHackThis {
         } else {
             for(uint256 j; j < redTeam.length; ++j) {
                 address winner = redTeam[j];
-                console.log(winner);
                 assembly {
 
                     let location := winners
@@ -119,8 +116,6 @@ contract IKnowYulNeverHackThis {
                 }
             }
         }
-        console.log("-");
-        console.log(winners[0]);
 
         uint256 shareOfPrize = address(this).balance / winners.length;
 

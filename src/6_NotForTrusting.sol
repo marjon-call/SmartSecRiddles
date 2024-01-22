@@ -89,7 +89,6 @@ contract Rewarder is IStaking{
     }
 
     function setStaker(address _staking) external guard {
-        // @todo mention this is bait
         require(tx.origin == admin, "you are not the admin");
         require(_staking != address(0), "we dont want C4 judges to be spamed with dumb findings"); 
         staking = Staking(_staking);
@@ -106,9 +105,11 @@ contract Rewarder is IStaking{
         StakeData memory userStake = staking.getStakerData(msg.sender);
         require(isStaking, "gotta stake to make money");
         require(block.number >= userStake.stakeStart + userStake.stakeDuration, "dont be hasty");
+        require(!hasClaimed[msg.sender], "no double dipping");
+        hasClaimed[msg.sender] = true;
         token.mint(1000 ether);
         token.transfer(msg.sender, 1000 ether);
-        hasClaimed[msg.sender] = true;
+        
     }
 
     function claim(address _for) external guard {
@@ -118,6 +119,7 @@ contract Rewarder is IStaking{
         require(block.number >= userStake.stakeStart + userStake.stakeDuration, "you know about vm.roll(), right?");
         require(!hasClaimed[msg.sender], "no double dipping");
 
+        hasClaimed[msg.sender] = true;
         token.mint(1000 ether);
         token.transfer(_for, 1000 ether);
     }
