@@ -1,5 +1,5 @@
 # BuyMyTokens Solution
-This challange is another challange that requires very little code to exploit. Let's look at the exploit, and dive into why it works:
+This challenge is another challenge that requires very little code to exploit. Let's look at the exploit, and dive into why it works:
 ```
 function test_GetThisPassing_5() public {
     address hacker = address(0xBAD);
@@ -18,7 +18,7 @@ function test_GetThisPassing_5() public {
     assertEq(token3.balanceOf(hacker), 4 ether);
 }
 ```
-All we ned to eploit this smart contract is go through each price and divide it by the amount of ether we have availabale. But shouldn't the function revert if we attempt to double spend our ether?
+All we need to exploit this smart contract is go through each price and divide it by the amount of ether we have available. But shouldn't the function revert if we attempt to double spend our ether?
 
 If you look inside `purchaseTokens()` & `_checkPurchasingPower()`, you will see that we check if the `msg.value` is equal to the price * amount inside of the for loop:
 ```
@@ -41,7 +41,7 @@ function _checkPurchasingPower(uint256 _amountOfEtherAvailable, uint256 _amount,
     require(cost >= _amountOfEtherAvailable, "dont be that guy; pay for your tokens");
 }
 ```
-Because we do not keep track of how much of the `msg.value` should be allocated to the previous purchases, each itteration calculates the purchase price with "already spent" ether.
+Because we do not keep track of how much of the `msg.value` should be allocated to the previous purchases, each iteration calculates the purchase price with "already spent" ether.
 A better solution would involve a variable that keeps track of how much ether we have spent on previous purchases like so:
 ```
 // added var
@@ -59,4 +59,4 @@ for(uint256 i; i < 3; i++) {
 }
 ```
 
-If you ever see `msg.value` inside of a for loop, you should immeditley be skeptical that the code functions properly.
+If you ever see `msg.value` inside of a for loop, you should immediately be skeptical that the code functions properly.

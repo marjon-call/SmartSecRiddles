@@ -17,11 +17,11 @@ function test_GetThisPassing_3() public {
 To win you simply need to:
 1. Join the Red Team.
 
-2. Call `defineWinners()` with the paramater set to false.
+2. Call `defineWinners()` with the parameter set to false.
 
-Winning this challange is fairly easy. However, understanding how you won is far more important. To get a grasp on how joining the red team allows you to win this challenge, lets start by viewing what happens when you join the blue team.
+Winning this challenge is fairly easy. However, understanding how you won is far more important. To get a grasp on how joining the red team allows you to win this challenge, lets start by viewing what happens when you join the blue team.
 
-Here is the code from that section with comments explaing each lines utility:
+Here is the code from that section with comments explaining each lines utility:
 ```
 // creates an empty address array in memory with a size of one
 address[] memory winners = new address[](1);
@@ -47,7 +47,7 @@ if (_isBlueTeam) {
             let newMsize := add( freeMem, 0x20 )
 
             /** 
-            if the free memory pointer is not equal to the next available memory location after the array, we need to move each memory variable one word further. This will prevent us from overwritting an existing variable if they exist. (In this scenario they do not exist, but I needed to add more code to throw you off :)
+            if the free memory pointer is not equal to the next available memory location after the array, we need to move each memory variable one word further. This will prevent us from overwriting an existing variable if they exist. (In this scenario they do not exist, but I needed to add more code to throw you off :)
             */
             if iszero( eq( freeMem, nextMemoryLocation) ){
                 let currVal
@@ -55,7 +55,7 @@ if (_isBlueTeam) {
             
                 // loop through the variables that need to be rewritten
                 for { let i := nextMemoryLocation } lt(i, newMsize) { i := add(i, 0x20) } {
-                    // get the current variables value from meory
+                    // get the current variables value from memory
                     currVal := mload(i)
                     // store the previous variable in this location
                     mstore(i, prevVal)
@@ -80,9 +80,9 @@ if (_isBlueTeam) {
     }
 ```
 
-We now know the proper way to update the winnings array. Although, addmitidley, there are far more efficient ways to do so for this particular function.
+We now know the proper way to update the winnings array. Although, admittedly, there are far more efficient ways to do so for this particular function.
 
-The issue with the version in the else statment (the flow if the red team is the winning team) stems from missing the following line of code:
+The issue with the version in the else statement (the flow if the red team is the winning team) stems from missing the following line of code:
 ```
 mstore( location, length )
 ```
@@ -93,5 +93,3 @@ Since the assembly block forgets to update the length of the array, the size is 
 
 
 Bonus Points if you noticed that the game cannot function properly after the first time.
-
-
