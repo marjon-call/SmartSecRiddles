@@ -13,23 +13,24 @@ contract FuzzTest is Test {
         target = dontpeak.deployed();
     }
 
-    // function test_GetThisPassing_1() public {
-    //     string memory solution = "win";
+
+    function test_GetThisFailing_1(uint256 _guess) public {
+
+        vm.assume(_guess < 5000);
+        bytes memory solution = "loss";
 
 
 
-        // string memory answer = target.dontHackMePlease(guess);
 
-
-        // assertEq(solution, answer);
-    // }
+        assertEq(solution, answer);
+    }
 
 
     // solution
-    function test_GetThisPassing_1(uint256 _guess) public {
+    function test_GetThisFailing_1(uint256 _guess) public {
 
         vm.assume(_guess < 5000);
-        bytes memory solution = "win";
+        bytes memory solution = "loss";
 
 
 
@@ -37,12 +38,6 @@ contract FuzzTest is Test {
 
 
         bytes memory answer = target.dontHackMePlease(guess);
-
-        if (answer.length != solution.length) {
-            return;
-        }
-
-        console.log(_guess);
 
 
         assertEq(solution, answer);

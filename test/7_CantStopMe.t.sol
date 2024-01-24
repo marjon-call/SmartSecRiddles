@@ -26,7 +26,7 @@ contract CantStopMe is Test {
         address hacker = address(0xBAD);
 
         vm.startPrank(hacker);
-        auction.winAuction{value: 1.2 ether}();
+        
         vm.stopPrank();
 
         dontpeak.checkIfPasses();

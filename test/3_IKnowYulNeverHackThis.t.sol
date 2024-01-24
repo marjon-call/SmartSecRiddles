@@ -16,29 +16,14 @@ contract IKnowYulNeverHackThisTest is Test {
     }
 
 
-    // function test_GetThisPassing_3(uint256 _guess) public {
-    //     address hacker = address(0xBAD);
-    //     vm.deal(hacker, 1 ether);
-
-
-        
-
-        
-    //     assertEq(hacker.balance, 10 ether);
-    // }
-
-
-    // solution
-    function test_GetThisPassing_3() public {
+    function test_GetThisPassing_3(uint256 _guess) public {
         address hacker = address(0xBAD);
         vm.deal(hacker, 1 ether);
 
-
         vm.startPrank(hacker);
-        target.joinRedTeam{value: 1 ether}();
-        target.defineWinners(false);
+        
         vm.stopPrank();
-
+        
         assertEq(hacker.balance, 10 ether);
     }
 

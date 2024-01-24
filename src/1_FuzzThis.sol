@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.22;
 
-import "forge-std/console.sol";
-
 contract FuzzThis {
     
     bytes32 private immutable secretPassword;

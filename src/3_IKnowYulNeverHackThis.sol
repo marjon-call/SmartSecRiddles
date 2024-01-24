@@ -88,7 +88,6 @@ contract IKnowYulNeverHackThis {
      
                     let length := mload(winners)
         
-                    // @todo !! THIS CHANGED FROM PUSH !! to remove 0 address
                     let nextMemoryLocation := add( location, mul( length, 0x20 ) )
                     let freeMem := mload(0x40)
 
@@ -109,7 +108,6 @@ contract IKnowYulNeverHackThis {
                     
                     mstore(nextMemoryLocation, winner)
         
-                    
                     length := add( length, 1 )
 
                     mstore(0x40, newMsize )

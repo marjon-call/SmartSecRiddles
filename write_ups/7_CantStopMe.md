@@ -1,6 +1,6 @@
 # CantStopMe Solution
 
-To pass this challenge you needed to create a DOS. The DOS stems from how the protocol calculates the new price of an auction using the oracle. Before I give you the solution, let's dive deeper into how the smart contracts interact.
+To pass this challenge you needed to create a DOS. The DOS stems from how the protocol calculates the new price of an auction using the oracle. Before I give you the solution, let's dive deeper into how the smart contracts interact together.
 
 `Auction::winAuction()` mints an NFT to the first user to place a bid. If a user does not bid on the price the admin can lower the cost of the NFT with `Auction::setDutchAuctionPrice()`. After someone wins the auction, anyone can call `Auction::createNewAuction()`. This calls `TrustyOracle` in order to create a new price for the next auction. The price is determined off the average price of the previous 5 auctions. If the selling price of this auction is greater than the previous auction, then the average price is increased by 20%. This causes the start price of the next auction to be larger. In order to prevent the price from being too high or too low, every 20 blocks the oracle sets a max and min boundary for the starting price of the auction. The min and max boundary is also determined by the previous 5 sales.
 

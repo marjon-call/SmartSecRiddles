@@ -88,7 +88,6 @@ contract Auction {
         currPrice = TrustyOracle(oracle).getNewAuctionPrice(lastPrice);
         require(currPrice <= maxPrice, "Price Too High");
         require(currPrice >= minPrice, "Price Too Low"); 
-        // @todo mention low price could of caused this
         inProgress = true;
         incrementStartPrice = false;
     }

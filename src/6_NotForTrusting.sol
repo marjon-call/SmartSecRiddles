@@ -47,7 +47,6 @@ contract Staking is IERC721Receiver, IStaking {
         StakeData memory userStake = stakeData[msg.sender];
         require(block.number >= userStake.stakeStart + userStake.stakeDuration, "patience is my least favorite virute too");
 
-        // @todo mention bonus points that if they set this to false they miss out on claiming
         if(claim) {
             rewarder.claim(msg.sender);
         }

@@ -24,31 +24,12 @@ contract BuyMyTokensTest is Test {
 
 
  
-    // function test_GetThisPassing_5() public {
-    //     address hacker = address(0xBAD);
-        
-
-    //     vm.startPrank(hacker);
-        
-    //     vm.stopPrank();
-
-    //     assertEq(token1.balanceOf(hacker), 12 ether);
-    //     assertEq(token2.balanceOf(hacker), 6 ether);
-    //     assertEq(token3.balanceOf(hacker), 4 ether);
-    // }
-
-
-    // solution
     function test_GetThisPassing_5() public {
         address hacker = address(0xBAD);
         
 
         vm.startPrank(hacker);
-        uint256[] memory amounts = new uint256[](3);
-        amounts[0] = 12;
-        amounts[1] = 6;
-        amounts[2] = 4;
-        target.purchaseTokens{value: 1.2 ether}(amounts);
+        
         vm.stopPrank();
 
         assertEq(token1.balanceOf(hacker), 12 ether);

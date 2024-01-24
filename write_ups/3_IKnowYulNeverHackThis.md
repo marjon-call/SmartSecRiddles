@@ -82,11 +82,11 @@ if (_isBlueTeam) {
 
 We now know the proper way to update the winnings array. Although, admittedly, there are far more efficient ways to do so for this particular function.
 
-The issue with the version in the else statement (the flow if the red team is the winning team) stems from missing the following line of code:
+The issue is in the code of the else statement (the flow if the red team is the winning team) stems from missing the following line of code:
 ```
 mstore( location, length )
 ```
-Although we do update the `length` variable, we only update it on the stack, and forget to store it in memory. All of the addresses were written to memory, but because the length never gets updated it keeps being rewritten by the next address. We were the last address in the red team array so our address is written to the winnings array at the end of the for loop.
+Although we do update the `length` variable, we only update it on the stack, and forget to store it in memory. All of the addresses were written to memory, but because the length never gets updated it keeps being over written by the next address. We were the last address in the red team array so our address is written to the `winnings` array at the end of the for loop.
 
 Since the assembly block forgets to update the length of the array, the size is still one. This causes the calculation for the share of winnings to assign the entire balance to `shareOfPrize`. This sends the entirety of the winnings to our address.
 

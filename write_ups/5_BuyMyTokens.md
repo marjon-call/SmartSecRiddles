@@ -20,7 +20,7 @@ function test_GetThisPassing_5() public {
 ```
 All we need to exploit this smart contract is go through each price and divide it by the amount of ether we have available. But shouldn't the function revert if we attempt to double spend our ether?
 
-If you look inside `purchaseTokens()` & `_checkPurchasingPower()`, you will see that we check if the `msg.value` is equal to the price * amount inside of the for loop:
+If you look inside `purchaseTokens()` & `_checkPurchasingPower()`, you will see that we check if the `msg.value` is equal to the `price` * `amount` inside of the for loop:
 ```
 function purchaseTokens(uint256[] memory _amounts) external payable {
     require(_amounts.length == 3, "There are 3 tokens");

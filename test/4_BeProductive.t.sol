@@ -26,28 +26,11 @@ contract BeProductiveTest is Test {
 
 
  
-    // function test_GetThisPassing_4() public {
-    //     address hacker = address(0xBAD);
-        
-    //     vm.startPrank(hacker);
-        
-    //     vm.stopPrank();
-
-    //     assertGt(token.balanceOf(hacker), 700 ether);
-    // }
-
-
-    // solution
     function test_GetThisPassing_4() public {
         address hacker = address(0xBAD);
         
-
         vm.startPrank(hacker);
-        token.approve(address(target), 10 ether);
-        target.createGoal(10 ether, 100 ether);
-        target.plan(590 ether);
-
-        target.completeGoal();
+        
         vm.stopPrank();
 
         assertGt(token.balanceOf(hacker), 700 ether);

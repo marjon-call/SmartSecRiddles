@@ -6,4 +6,4 @@ This smart contract helps users to save money. A user is required to create a go
 You start out with 10 tokens, and there are 590 tokens locked in the smart contract. Can you steal all 590 tokens, and receive the 100 token reward?
 
 ### Hint
-Do not just repeatedly call `plan` until you have enough tokens. Realistically you will waste way more in gas costs than you would end up stealing.
+Do not just repeatedly call `plan` until you have enough tokens. Realistically, you will waste way more in gas costs than you would end up stealing.

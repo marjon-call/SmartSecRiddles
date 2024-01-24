@@ -8,13 +8,13 @@ Your answer is wrong. It was a red herring. Although that is a potential vulnera
 
 
 ### The real solution
-The actual vulnerability is a cross contract reentrancy attack. Nowadays, most developers are aware of simple reentrancy attacks. In this case, both smart even contracts have a reentrancy guard modifier on every state changing function.
+The actual vulnerability is a cross contract reentrancy attack. Nowadays, most developers are aware of simple reentrancy attacks. In this case, both smart contracts even have a reentrancy guard modifier on every state changing function.
 
 Since the two smart contracts do not share the same state for the reentrancy guard modifier, they are not aware when the other contract is locked. To fix this issue, I recommend that protocols with multiple smart contracts should share the state of the reentrancy guard modifier by creating a separate smart contract that they both read and write to the state of the contract.
 
 The basics of the rentrancey revolves around claiming twice, and taking advantage of an NFT's `safeTransforFrom()` function call to `onERC721Received()` in the receiving smart contract. We will go over the affected code in more depth later, but for now let's look into how we perform the exploit.
 
-To exploit the vulnerability, we need a separate smart contract to perform the rentrancey. Let's take a look at my implementations of it:
+To exploit the vulnerability, we need a separate smart contract to perform the rentrancey. Let's take a look at my implementation of it:
 ```
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.22;
@@ -100,7 +100,7 @@ Here are the steps to execute the attack:
 2. Stake the NFT.
 3. Set the attack contract in attack mode. Now when it receives the NFT it knows to claim again.
 4. Move the block number.
-5. Call unstake. This is when the reentrancy occurs 
+5. Call unstake. This is when the reentrancy occurs.
 6. Pull out the winnings.
 
 Now let's go over why we were able to exploit a reentrancy attack. Although the `lock` modifier does not protect both smart contracts, this attack could have been avoided if the code handled state changes better.
@@ -146,6 +146,6 @@ function claim(address _for) external guard {
 
 Because the original code is updating and checking `msg.sender` instead of `_for`, this actually blocks `Staking` from claiming again, regardless of the user.
 
-Whenever you see a smart contract hand over flow to an external contract, you meticulously check all possible interactions and possibilities of a reentrancy attack.
+Whenever you see a smart contract hand over flow to an external contract, you should meticulously check all possible interactions and possibilities of a reentrancy attack.
 
 Bonus Points if you noticed that a user who has not manually claimed and does not set `claim` to true while unstaking will lose out on their rewards.
