@@ -20,7 +20,25 @@ contract FuzzTest is Test {
         bytes memory solution = "loss";
 
 
-        bytes memory answer = bytes("Replace this with your solution");
+
+
+        assertEq(solution, answer);
+    }
+
+
+    // solution
+    function test_GetThisFailing_1(uint256 _guess) public {
+
+        vm.assume(_guess < 5000);
+        bytes memory solution = "loss";
+
+
+
+        bytes32 guess = keccak256(abi.encode(15 + _guess));
+
+
+        bytes memory answer = target.dontHackMePlease(guess);
+
 
         assertEq(solution, answer);
     }
