@@ -13,7 +13,6 @@ contract FuzzThis {
     function dontHackMePlease(bytes32 _collectionOfHexadecimal) external returns(bytes memory) {
         
         if (_collectionOfHexadecimal == secretPassword) {
-            console.logBytes32(secretPassword);
             return "win";
         }
 

@@ -1,4 +1,4 @@
-.# SmartSecRiddles: Start Here
+# SmartSecRiddles: Start Here
 
 ## Background
 
