@@ -3,7 +3,10 @@ src = "src"
 out = "out"
 libs = ["lib"]
 
-solc_version = "0.8.22"
+solc_version = "0.8.25"
+
+evm-version = "cancun"
+
 
 remappings = [
     "@opensezppling/=lib/openzeppelin-contracts/"
